@@ -189,6 +189,26 @@
       </nav>
     </div><!-- /container -->
 
+    <div class="modal fade" id="remove-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              Confirm</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="modal-close" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="modal-confirm">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div>
+    </div>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.11.2.min.js"></script>
@@ -199,7 +219,7 @@
       $(document).ready(function(){
         $(".info-op").click(function(){
           // 下面这行代码就是你要的ID属性
-          var thid = $(this).parent().parent().children("th").get(0).innerHTML;
+          var thid = $(this).parent().parent().children("th").text();
           //console.log(thid);
           alert("The ID is " + thid);
         });
@@ -216,23 +236,38 @@
 
         $(".remove-op").click(function(){
           var tr = $(this).parent().parent();
-          tr.remove(); 
+          // alert("Do you want to remove Line#" + tr.children("th")[0].innerHTML + "?");
+          $("#remove-modal").modal({
+            keyboard: false
+          });
+
+          $("#remove-modal .modal-body p").text("Do you want to delete Line#"+ tr.children("th").text() +"?");
+
+          $("#modal-confirm").click(function(){
+            $("#remove-modal").modal('hide');
+            tr.remove();           
+          });
+
         });
 
         $(".all-check").click(function(){
-          document.getElementById("all-check").checked;
-          if($(".all-check").checked){
+          // console.log($(".all-check")[0].checked);
+          // console.log($(".one-check")[0].checked);
+          if(this.checked){
             $(".one-check").each(function(){
-              $(this).checked = true;
+              this.checked = true;
+              // $(this).attr("checked", false);
+              // $(this).attr("checked", true);
             });
           }
           else{
-            // console.log($(".all-check").attr("checked"));
             $(".one-check").each(function(){
-              $(this).checked = false;
+              this.checked = false;
+              // $(this).attr("checked", false);
             });
           }
         });
+
       });
     </script>
 
