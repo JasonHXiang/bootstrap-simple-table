@@ -94,14 +94,14 @@
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search">
               </div>
-              <a class="btn btn-default" href="#" role="button">
+              <a class="btn btn-link" href="#" role="button">
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
               </a>
             </form>
           </caption>  
           <thead>
             <tr>
-              <th>#</th>
+              <th><input class="all-check" type="checkbox"> #</th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>操作</th>
@@ -109,51 +109,60 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">1</th>
+              <th scope="row"><input class="one-check" type="checkbox"> 1</th>
               <td>Mark</td>
               <td>Otto</td>
               <td>
-                <button type="button" class="btn btn-link">
+                <a class="info-op col-md-1" href="#" role="button">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-link">
+                </a>
+                <a class="ok-op col-md-1 col-md-offset-1" href="#" role="button">
                   <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-link">
+                </a>
+                <a class="undo-op col-md-1 col-md-offset-1" href="#" role="button">
+                  <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                </a>
+                <a class="remove-op col-md-1 col-md-offset-1" href="#" role="button">
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </button>
+                </a>
               </td>
             </tr>
             <tr>
-              <th scope="row">2</th>
+              <th scope="row"><input class="one-check" type="checkbox"> 2</th>
               <td>Jacob</td>
               <td>Thornton</td>
               <td>
-                <button type="button" class="btn btn-link">
+                <a class="info-op col-md-1" href="#" role="button">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-link">
+                </a>
+                <a class="ok-op col-md-1 col-md-offset-1" href="#" role="button">
                   <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-link">
+                </a>
+                <a class="undo-op col-md-1 col-md-offset-1" href="#" role="button">
+                  <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                </a>
+                <a class="remove-op col-md-1 col-md-offset-1" href="#" role="button">
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </button>
+                </a>
               </td>
             </tr>
             <tr>
-              <th scope="row">3</th>
+              <th scope="row"><input class="one-check" type="checkbox"> 3</th>
               <td>Larry</td>
               <td>the Bird</td>
               <td>
-                <button type="button" class="btn btn-link">
+                <a class="info-op col-md-1" href="#" role="button">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-link">
+                </a>
+                <a class="ok-op col-md-1 col-md-offset-1" href="#" role="button">
                   <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-link">
+                </a>
+                <a class="undo-op col-md-1 col-md-offset-1" href="#" role="button">
+                  <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                </a>
+                <a class="remove-op col-md-1 col-md-offset-1" href="#" role="button">
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </button>
+                </a>
               </td>
             </tr>
           </tbody>
@@ -182,16 +191,47 @@
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jquery-1.11.2.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
       $(document).ready(function(){
-        $(".btn").click(function(){
-            // 下面这行代码就是你要的ID属性
-            var thid = $(this).parent().parent().children("th").get(0).innerHTML;
-            console.log(thid);
+        $(".info-op").click(function(){
+          // 下面这行代码就是你要的ID属性
+          var thid = $(this).parent().parent().children("th").get(0).innerHTML;
+          //console.log(thid);
+          alert("The ID is " + thid);
+        });
+
+        $(".ok-op").click(function(){
+          var th = $(this).parent().parent().children("th");
+          th.addClass("success");
+        });
+
+        $(".undo-op").click(function(){
+          var th = $(this).parent().parent().children("th");
+          th.removeClass("success"); 
+        });
+
+        $(".remove-op").click(function(){
+          var tr = $(this).parent().parent();
+          tr.remove(); 
+        });
+
+        $(".all-check").click(function(){
+          document.getElementById("all-check").checked;
+          if($(".all-check").checked){
+            $(".one-check").each(function(){
+              $(this).checked = true;
+            });
+          }
+          else{
+            // console.log($(".all-check").attr("checked"));
+            $(".one-check").each(function(){
+              $(this).checked = false;
+            });
+          }
         });
       });
     </script>
